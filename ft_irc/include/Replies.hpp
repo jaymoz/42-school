@@ -1,0 +1,36 @@
+#ifndef REPLIES_HPP
+# define REPLIES_HPP
+
+#define MESSAGE					":<nick>!<user>@<host> PRIVMSG <target> :<msg>\r\n"
+#define JOIN						":<nick>!<user>@<host> JOIN :<comment>\r\n"
+
+#define SERVER_NAME				"IRC"
+#define RPL_WELCOME				":<server> 001 <nick> :Welcome to the Internet Relay Network\r\n"
+#define RPL_AWAY					":<server> 301 * <target> :<msg>\r\n"
+#define RPL_ISON					":<server> 303 * :<online_nicks>\r\n"
+#define RPL_LIST                    ":<server> 322 * :<online_nicks>\r\n"
+#define RPL_TOPIC				":<server> 332 * <channel> :<topic>\r\n"
+#define RPL_NAMREPLY				":<server> 353 * <channel> : <comment>\r\n"
+#define RPL_ENDOFNAMES			":<server> 366 * <channel> :End of /NAMES list\r\n"
+#define RPL_MOTDSTART			":<server> 375 <nick> :MOTD start\r\n"
+#define RPL_ENDOFMOTD			":<server> 376 <nick> :MOTD end\r\n"
+#define ERR_NOSUCHNICK			":<server> 401 <nick> :No such nick/channel\r\n"
+#define ERR_NOSUCHCHANNEL		":<server> 403 <channel> :No such channel\r\n"
+#define ERR_NORECIPIENT			":<server> 411 <nick> :No recipient given\r\n"
+#define ERR_NOTEXTTOSEND			":<server> 412 <nick> :No text to send\r\n"
+#define ERR_NONICKNAMEGIVEN		":<server> 431 <nick> :No nickname given\r\n"
+#define ERR_ERRONEUSNICKNAME		":<server> 432 :Erroneous nickname\r\n"
+#define ERR_NICKNAMEINUSE		":<server> 433 <nick> :Nickname is already in use\r\n"
+#define ERR_UNAVAILRESOURCE		":<server> 437 <nick> Nick/channel is temporarily unavailable\r\n"
+#define ERR_NOTONCHANNEL			":<server> 442 <channel> :You're not on that channel\r\n"
+#define ERR_NEEDMOREPARAMS		":<server> 461 <nick> :Not enough parameters\r\n"
+#define ERR_ALREADYREGISTRED		":<server> 462 <nick> :Unauthorized command (already registered)\r\n"
+#define ERR_ALREADYTYPEDPASSWORD		":<server> 462 <nick> :Unauthorized command (already registered)\r\n"
+#define ERR_PASSWDMISMATCH		":<server> 464 <nick> :Password incorrect\r\n"
+#define ERR_NOPASSWORD		":<server> 464 <nick> :No password provided\r\n"
+#define ERR_BADCHANNELKEY		":<server> 475 * <channel> :Cannot join channel (+k)\r\n"
+#define ERR_BADCHANMASK			":<server> 476 * :<comment>\r\n"
+#define ERR_CHANOPRIVSNEEDED		":<server> 482 <channel> :You're not channel operator\r\n"
+#define ERR_NOTREGISTERED       ":<server> 451 <nick> :You're not registered\r\n"
+
+#endif

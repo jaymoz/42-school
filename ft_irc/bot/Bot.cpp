@@ -47,10 +47,10 @@ void    Bot::ft_connect()
     }
     std::string pass = "PASS " + this->_serverPass + "\r\n";
     send(this->_socketFd, pass.c_str(), pass.size(), 0);
-    sleep(1);
+    usleep(100);
     std::string nick = "NICK " + this->_nickname + "\r\n";
     send(this->_socketFd, nick.c_str(), nick.size(), 0);
-    sleep(1);
+    usleep(100);
     std::string user = "USER IRCBOT * * : IRCBOT\r\n";
     send(this->_socketFd, user.c_str(), user.size(), 0);
 

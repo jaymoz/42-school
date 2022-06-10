@@ -8,6 +8,7 @@ void    Client::ft_send_message(std::string msg)
 {
     if (send(this->_socketFd, msg.c_str(), msg.length(), 0) == -1)
         throw CustomException::FailedToSendMsg();
+
 }
 
 void    Client::ft_set_nickname(const std::string& nickname) {this->_nickname = nickname; }
@@ -39,6 +40,22 @@ std::string     Client::ft_get_nickname() {return this->_nickname; }
 std::string     Client::ft_get_fullname() {return this->_fullName; }
 
 std::string     Client::ft_get_username() {return this->_username; }
+
+std::string     Client::fill_placeholders(const std::string &s, const std::string &comment,std::string host)
+{
+	std::string msg(s);
+
+	ft_replace(msg, "<nick>", _nickname);
+	ft_replace(msg, "<user>", _username);
+	ft_replace(msg, "<server>", SERVER_NAME);
+	ft_replace(msg, "<msg>", _send_msg);
+    ft_replace(msg, "<online_nicks>", _online_nicks);
+    ft_replace(msg, "<target>", _target);
+	ft_replace(msg, "<comment>", comment);
+    ft_replace(msg, "<host>", host);
+
+	return msg;
+}
 
 void    Client::ft_add_channel(Channel *channel)
 {

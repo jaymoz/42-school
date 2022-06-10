@@ -67,6 +67,7 @@ void    Server::ft_bind_socket()
 
     if (bind(this->_socketFd, (sockaddr *)&this->_server_address, sizeof(this->_server_address)) == -1)
         throw CustomException::FailedToBind();
+    this->_address = inet_ntoa(_server_address.sin_addr);
    
 }
 
@@ -181,6 +182,7 @@ void    Server::ft_run_server()
                 std::cout << "\033[0;31mClient : [";
                 std::cout << client->ft_get_socketFd() <<  "] disconnected from the Server\033[0m" << std::endl;
                 this->ft_remove_client(client);
+                delete client;
                 close(it->fd);
                 it = _fds.erase(it);
                 if (it == _fds.end())
@@ -257,28 +259,19 @@ void    Server::ft_handle_commands(Client *client, std::string &msg)
 		if (cmd_line[i].length() == 0)
 			continue;
 
-		std::cout << cmd_line[i] << std::endl;
-
 		std::vector<std::string> cmd_args = str_parse(cmd_line[i]);
 		for (size_t j = 0; j < cmd_args.size(); j++)
 			cmd_args[j] = str_trim(cmd_args[j], " \n\t\r\f\v");
 		std::string cmd_name = str_trim(cmd_args[0], " \n\t\v\f\r");
-        std::cout << cmd_name << std::endl;
         cmd_args.erase(cmd_args.begin());
-        try 
+
+        for (size_t k = 0; k < 13; k++)
         {
-            for (size_t k = 0; k < 13; k++)
+            if (cmd_name == this->_commands[k])
             {
-                if (cmd_name == this->_commands[k])
-                {
-                    (this->*funcptr[k])(cmd_args, client);
-                    break ;
-                }
+                (this->*funcptr[k])(cmd_args, client);
+                break ;
             }
-        }
-        catch (std::string &e)
-        {
-            std::cout << e << std::endl;
         }
 
 	}
@@ -293,3 +286,28 @@ void Server::ft_remove_pollfd(int fd)
 		}
 	}
 }
+
+
+void    Server::send_msg_to_client(int client_fd, const std::string &msg)
+{
+	std::string message(msg);
+
+	ft_replace(message, "<host>", _address);
+	ft_replace(message, "<server>", SERVER_NAME);
+
+	std::cout << "-> [" << client_fd << "]: " << message << std::endl;
+	if (send(client_fd, message.c_str(), message.length(), 0) == -1)
+		std::cerr << "Error: [" << client_fd << "]: " << message << std::endl;
+}
+
+ std::string    &Server::ft_get_host_address()
+ {
+     return this->_address;
+ }
+
+  void  Server::ft_send_hello(Client *client)
+ {
+	Server::send_msg_to_client(client->ft_get_socketFd(), client->fill_placeholders(RPL_MOTDSTART));
+	Server::send_msg_to_client(client->ft_get_socketFd(), client->fill_placeholders(RPL_WELCOME));
+	Server::send_msg_to_client(client->ft_get_socketFd(), client->fill_placeholders(RPL_ENDOFMOTD));
+ }

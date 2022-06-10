@@ -28,6 +28,18 @@ void    Channel::ft_send_message(std::string message, std::string welcomemsg, Cl
         }
 
     }
+    // (void)message;
+}
+
+void    Channel::ft_send_message_to_channel(std::string message, Client *client)
+{
+    std::vector<Client *>::iterator it;
+    for (it = this->_clients.begin(); it != this->_clients.end(); it++)
+    {
+        if ((*it) != client)
+            (*it)->ft_send_message(message);
+
+    }
 }
 
 void    Channel::ft_add_operator(Client *client)

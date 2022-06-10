@@ -10,6 +10,7 @@
 #include <sys/socket.h>
 #include <sys/poll.h>
 #include <fcntl.h>
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <cstdlib>
@@ -17,6 +18,9 @@
 #include "Channel.hpp"
 #include "Client.hpp"
 #include "Exceptions.hpp"
+#include "Replies.hpp"
+#include "Utils.hpp"
+
 
 class Client;
 
@@ -28,6 +32,7 @@ class Server
         int                         _socketFd;
         std::string&                _password;
         std::string&                _port;
+        std::string                 _address;
         std::vector<Client *>       _clients;
         std::vector<Channel *>      _channels;
         std::vector<pollfd>         _fds;
@@ -47,7 +52,6 @@ class Server
         void        use_password();
         std::string ft_recieve_msg(int fd);
         void        ft_handle_commands(Client *client, std::string &msg);
-        void        ft_authenticate();
         void        ft_join_command(std::vector<std::string> &args, Client *client);
         void        ft_nick_command(std::vector<std::string> &args, Client *client);
         void        ft_private_msg_command(std::vector<std::string> &args, Client *client);
@@ -65,32 +69,12 @@ class Server
         void        ft_delete_channel(std::string channelname);
         Channel     *ft_find_channel(std::string channel);
         Client      *ft_find_client(std::string nickname);
+        std::string &ft_get_host_address();
         std::vector<Client *> ft_get_all_clients();
         std::vector<std::string> ft_get_args(std::string argString);
         void        ft_remove_pollfd(int fd);
-
-        std::string AlreadyAuthenticated(Client *client)
-        {
-            return "\033[0;31mServer Error: You are already authenticated!!! @\033[0m" + client->ft_get_nickname();
-        };
-
-        std::string IncompleteDetails(Client *client)
-        {
-            return "Incomplete details provided by User: @" + client->ft_get_nickname();
-        };
-
-        std::string IncorrectPassword(Client *client)
-        {
-            return "\033[0;31mServer Error: Incorrect password provided!!! @\033[0m" + client->ft_get_nickname();
-        };
-        std::string NoNickname(Client *client)
-        {
-            return "\033[0;31mServer Error: No Nickname Provided!!! @\033[0m" + client->ft_get_nickname();
-        };
-        std::string NoPasswordProvided(Client *client)
-        {
-            return "\033[0;31mServer Error: No Password Provided!!! @\033[0m" + client->ft_get_nickname();
-        };
+        void        send_msg_to_client(int client_fd, const std::string &msg);
+        void        ft_send_hello(Client *client);
 
 };
 

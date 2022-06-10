@@ -27,6 +27,7 @@ class Channel
         bool                    ft_empty_channel();
         bool                    ft_is_an_operator(Client *client);
         void                    ft_remove_client_by_nickname(std::string nickName);
+        void                    ft_send_message_to_channel(std::string message, Client *client);
 };
 
 #endif

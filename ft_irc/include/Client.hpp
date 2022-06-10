@@ -4,6 +4,8 @@
 #include <vector>
 #include "Channel.hpp"
 #include "Exceptions.hpp"
+#include "Utils.hpp"
+#include "Server.hpp"
 
 class Channel;
 
@@ -20,6 +22,9 @@ class Client
         bool                    _enteredNickname;
         bool                    _enteredUsername;
     public:
+        std::string             _online_nicks;
+        std::string             _target;
+        std::string             _send_msg;
         Client(int fd);
         ~Client();
         void            ft_send_message(std::string msg);
@@ -40,6 +45,7 @@ class Client
         std::string     ft_get_nickname();
         std::string     ft_get_username();
         std::string     ft_get_fullname();
+        std::string     fill_placeholders(const std::string &s, const std::string &comment="", std::string host="127.0.0.1");
 
 
 };
