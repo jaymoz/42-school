@@ -1,5 +1,5 @@
 ## Project description
-This project is about creating a command line interpreter (shell).
+This project is about creating your own IRC server, fully compatible with an official client.
 
 clone this repo and change directory to Minishell:
 ```html
