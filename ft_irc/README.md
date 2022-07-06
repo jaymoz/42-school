@@ -1,7 +1,7 @@
 ## Project description
 This project is about creating your own IRC server, fully compatible with an official client.
 
-clone this repo and change directory to Minishell:
+clone this repo and change directory to ft_irc:
 ```html
    git clone https://github.com/jaymoz/42-school.git
    cd ft_irc
