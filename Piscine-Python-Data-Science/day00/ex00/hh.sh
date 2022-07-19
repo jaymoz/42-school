@@ -1,0 +1,1 @@
+curl -k "https://api.hh.ru/vacancies?text=data%20scientist&page=0&per_page=20" | jq '.' > hh.json
