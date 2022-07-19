@@ -17,3 +17,4 @@ This repo contains a list of all my projects in 42 school(школа 21 in Russi
 | Cpp-Modules | A series of C++ tasks to help you get acquainted with C++ and object oriented programming. | |
 | Cub3d | This project is inspired by the world-famous Wolfenstein 3D game, which was the first FPS ever. Exploring raycasting goal is to make a dynamic view inside a maze, in which you’ll have to find your way. |[cub3d.pdf](https://github.com/jaymoz/42-school/files/8718887/cub3d.pdf)|
 | ft_irc | This project is about creating your own IRC server, fully compatible with an official client. |[ft_irc.pdf](https://github.com/jaymoz/42-school/files/8836141/ft_irc.pdf)|
+| Piscine Python Data Science | Практический набор задач на Python и Data Science ||
